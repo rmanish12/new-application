@@ -1,0 +1,62 @@
+.link {
+    color: white;
+}
+
+.link:hover {
+    color: wheat;
+}
+
+#login {
+    border: 1px solid;
+    padding: 10px;
+    box-shadow: 5px 10px gray;
+    background-color: azure;
+    margin-top: 10px;
+  }
+
+label {
+    font-weight: bold;
+    font-size: medium;
+}
+
+.login-button {
+    width: 100%;
+}
+
+.gender-radio {
+    margin-left: 10px;
+}
+
+.gender {
+    font-weight: normal;
+}
+
+.required:after {
+    content: " *";
+    color: red;
+}
+
+.edit-button {
+    width: 100%;
+    margin-top: 5%;
+}
+
+.alert {
+    width: 60%;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.alert-content {
+    text-align: center;
+}
+
+.error {
+    color: red;
+}
+
+.error-msg {
+    color: red;
+    font-size: smaller;
+}
