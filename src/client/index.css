@@ -60,3 +60,14 @@ label {
     color: red;
     font-size: smaller;
 }
+
+.items-per-page {
+    position: absolute;
+    right: 0px;
+    padding-top: 6px;
+}
+
+.pagination {
+    margin: auto;
+    width: 0%;
+}

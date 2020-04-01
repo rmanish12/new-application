@@ -226,13 +226,24 @@ const changePassword = async (req, res) => {
 
 const getAllUser = async (req, res) => {
     logger.info('Inside getAllUser')
+
+    const { pageId, numberOfUsers } = req.body
+
     try {
-        const allUsers = await User.findAll()
+
+        const usersLength = await User.findAll()
+        console.log('usersLength: ', usersLength.length)
+
+        const allUsers = await User.findAll({
+            limit: numberOfUsers,
+            offset: (pageId - 1)*numberOfUsers
+        })
 
         const users = []
 
         allUsers.map(user => {
             return users.push({
+                id: user.id,
                 firstName: user.first_name,
                 lastName: user.last_name,
                 email: user.email,
@@ -243,7 +254,7 @@ const getAllUser = async (req, res) => {
 
         logger.info('Sending all users')
 
-        res.status(200).send(users)
+        return res.status(200).send({users: users, numberOfUsers: usersLength.length})
     } catch(err) {
         logger.error(`Error while getting all users ${err}`)
         return res.status(500).send('Something went wrong. Please try again.')

@@ -9,11 +9,12 @@
   - User can change password
   - User can update profile
   - Admin user can get a list of all users as of now
+  - Pagination
+  - Change number of items per page
 
 # Unimplemented Features!
 
   - Styling component
-  - Pagination
   - Export excel
   - Add some data from UI
 
