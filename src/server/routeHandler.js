@@ -2,6 +2,7 @@ const User = require('./db/models/user')
 const bcrypt = require('bcryptjs')
 const logger = require('logger').createLogger()
 const jwt = require('jsonwebtoken')
+const excel = require('exceljs')
 
 const SECRET_KEY = process.env.SECRET_KEY
 
@@ -261,4 +262,38 @@ const getAllUser = async (req, res) => {
     }
 }
 
-module.exports = { createUser, login, isLoggedIn, manageProfile, updateProfile, changePassword, getAllUser }
+const generateExcel = async (req, res) => {
+    try {
+        const fileName = 'Users.xlsx'
+
+        const allUsers = await User.findAll()
+
+        const workbook = new excel.Workbook()
+        const worksheet = workbook.addWorksheet('Sheet1')
+
+        worksheet.columns = [
+            {header: 'First Name', key: 'firstName'},
+            {header: 'Last Name', key: 'lastName'},
+            {header: 'Email', key: 'email'},
+            {header: 'Gender', key: 'gender'},
+            {header: 'Date Of Birth', key: 'dob'}
+        ]
+
+        allUsers.map(user => {
+            worksheet.addRow({firstName: user.first_name, lastName: user.last_name, email: user.email, gender: user.gender, dob: user.date_of_birth})
+        })
+
+        res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        res.setHeader("Content-Disposition", "attachment; filename=" + fileName);
+
+        workbook.xlsx.write(res).then(() => {
+            res.end()
+        })
+
+    }catch(err) {
+        logger.error(`Error while generating excel ${err}`)
+        return res.status(500).send('Something went wrong. Please try again.')
+    }
+}
+
+module.exports = { createUser, login, isLoggedIn, manageProfile, updateProfile, changePassword, getAllUser, generateExcel }

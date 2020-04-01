@@ -23,6 +23,7 @@ function isAuthorized(req, res, next) {
         } else {
             const role = decoded.role
             if(role==='User' || role==='Admin') {
+                logger.info('User is either User or Admin')
                 next()
             } else {
                 return res.sendFile(path.join(__dirname, '/forbidden/forbidden.html'))

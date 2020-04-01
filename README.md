@@ -11,11 +11,11 @@
   - Admin user can get a list of all users as of now
   - Pagination
   - Change number of items per page
+  - Export excel of all users by admin users
 
 # Unimplemented Features!
 
   - Styling component
-  - Export excel
   - Add some data from UI
 
 ### Front End Tech

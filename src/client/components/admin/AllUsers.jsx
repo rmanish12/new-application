@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import moment from 'moment'
 
-import { Table, Form, Pagination, Container, Col, Row, Alert } from 'react-bootstrap'
+import { Table, Form, Pagination, Container, Col, Row, Alert, Button } from 'react-bootstrap'
 
 import '../../index.css'
 
@@ -55,6 +55,29 @@ const allUsers = () => {
         setActive(1)
     }
 
+    function onExcelDownload() {
+
+        axios({
+            method: 'post',
+            url: '/generateExcel',
+            responseType: 'blob',
+            headers: {
+                Authorization: "Bearer " + token
+            }
+        }).then(res => {
+            const url = window.URL.createObjectURL(new Blob([res.data]))
+            const link = document.createElement('a')
+            link.href = url
+            link.setAttribute('download', 'Users.xlsx')
+            document.body.appendChild(link)
+            link.click()
+        })
+        .catch(err => {
+            console.log('err: ', err)
+        })
+
+    }
+
     return (
         <>
             {error &&
@@ -71,7 +94,9 @@ const allUsers = () => {
                 <>
                     <Container>
                         <Row>
-                            <Col md={8}></Col>
+                            <Col md={8}>
+                                <Button variant="light" onClick={onExcelDownload}>Export Excel</Button>
+                            </Col>
                             <Col md={2}>
                                 <div className="items-per-page"><Form.Label>Items Per Page</Form.Label></div>
                             </Col>
