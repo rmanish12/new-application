@@ -56,6 +56,9 @@ function Login(props) {
 
             <Container>
                 <Row>
+                    <Col md={12}><div className="form-header"><h3>Login</h3></div></Col>
+                </Row>
+                <Row>
                     <Col></Col>
 
                     <Col xs={12} md={6}>

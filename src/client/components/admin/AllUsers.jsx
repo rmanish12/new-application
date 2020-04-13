@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import moment from 'moment'
 
-import { Table, Form, Pagination, Container, Col, Row, Alert, Button } from 'react-bootstrap'
+import { Table, Form, Pagination, Container, Col, Row, Alert, Button, DropdownButton, ButtonGroup, Dropdown } from 'react-bootstrap'
 
 import '../../index.css'
 
@@ -72,10 +72,17 @@ const allUsers = () => {
             document.body.appendChild(link)
             link.click()
         })
-        .catch(err => {
-            console.log('err: ', err)
-        })
+            .catch(err => {
+                console.log('err: ', err)
+            })
 
+    }
+
+    function onGenderFilter(e) {
+        const name = e.target.name
+        const value = e.target.value
+
+        console.log(name, value)
     }
 
     return (
@@ -92,58 +99,106 @@ const allUsers = () => {
             }
             {users &&
                 <>
-                    <Container>
-                        <Row>
-                            <Col md={8}>
-                                <Button variant="light" onClick={onExcelDownload}>Export Excel</Button>
-                            </Col>
-                            <Col md={2}>
-                                <div className="items-per-page"><Form.Label>Items Per Page</Form.Label></div>
-                            </Col>
-                            <Col md={2}>
-                                <Form>
-                                    <Form.Group controlId="exampleForm.ControlSelect1">
+                    <div style={{ backgroundColor: 'azure' }}>
+                        <Container>
+                            <Row>
+                                <Col md={8}>
+                                    <Button className="export-button" onClick={onExcelDownload}>Export Excel</Button>
+                                </Col>
+                                <Col md={2}>
+                                    <div className="items-per-page"><Form.Label>Items Per Page</Form.Label></div>
+                                </Col>
+                                <Col md={2}>
+                                    <Form>
+                                        <Form.Group controlId="itemsPerPage">
 
-                                        <Form.Control as="select" onChange={onNumberOfItemsChange}>
-                                            <option value="2" selected>2</option>
-                                            <option value="5">5</option>
-                                            <option value="10">10</option>
-                                        </Form.Control>
-                                    </Form.Group>
-                                </Form>
-                            </Col>
-                        </Row>
-                    </Container>
-                    <Table striped bordered hover>
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Email</th>
-                                <th>Gender</th>
-                                <th>Date Of Birth</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {users.map((user, index) => {
-                                const dob = moment(user.dateOfBirth).format('DD-MM-YYYY')
-                                return (
-                                    <tr key={index}>
-                                        <td>{user.id}</td>
-                                        <td>{user.firstName}</td>
-                                        <td>{user.lastName}</td>
-                                        <td>{user.email}</td>
-                                        <td>{user.gender}</td>
-                                        <td>{dob}</td>
-                                    </tr>
-                                )
-                            })
-                            }
-                        </tbody>
-                    </Table>
+                                            <Form.Control as="select" defaultValue={2} onChange={onNumberOfItemsChange} className="items-per-page-dropdown">
+                                                <option value="2">2</option>
+                                                <option value="5">5</option>
+                                                <option value="10">10</option>
+                                            </Form.Control>
+                                        </Form.Group>
+                                    </Form>
+                                </Col>
+                            </Row>
+                        </Container>
+                        <Table striped bordered hover>
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Email</th>
+                                    <th>
+                                        Gender
+                                        <DropdownButton
+                                            as={ButtonGroup}
+                                            key="info"
+                                            id='genderFilter'
+                                            variant="info"
+                                            title="Filter"
+                                        >
+                                            <Dropdown.Item eventKey="1">
+                                                <Form>
+                                                    <Form.Check
+                                                        name="genderFilter"
+                                                        type="checkbox"
+                                                        label="Male"
+                                                        value="Male"
+                                                        id="Male Checkbox"
+                                                        onChange={onGenderFilter}
+                                                    />
+
+                                                    <Form.Check
+                                                        name="genderFilter"
+                                                        type="checkbox"
+                                                        label="Female"
+                                                        value="Female"
+                                                        id="Female Checkbox"
+                                                        onChange={onGenderFilter}
+                                                    />
+  {/* {['checkbox', 'radio'].map((type) => (
+    <div key={`inline-${type}`} className="mb-3">
+      <Form.Check inline label="1" type={type} id={`inline-${type}-1`} />
+      <Form.Check inline label="2" type={type} id={`inline-${type}-2`} />
+      <Form.Check
+        inline
+        disabled
+        label="3 (disabled)"
+        type={type}
+        id={`inline-${type}-3`}
+      />
+    </div>
+  ))} */}
+                                                </Form>
+                                            </Dropdown.Item>
+
+                                        </DropdownButton>{' '}
+                                    </th>
+                                    <th>Date Of Birth</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {users.map((user, index) => {
+                                    const dob = moment(user.dateOfBirth).format('DD-MM-YYYY')
+                                    return (
+                                        <tr key={index}>
+                                            <td>{user.id}</td>
+                                            <td>{user.firstName}</td>
+                                            <td>{user.lastName}</td>
+                                            <td>{user.email}</td>
+                                            <td>{user.gender}</td>
+                                            <td>{dob}</td>
+                                        </tr>
+                                    )
+                                })
+                                }
+                            </tbody>
+                        </Table>
+                    </div>
 
                     <div className="pagination"><Pagination size="sm">{pages}</Pagination></div>
+
                 </>
             }
         </>

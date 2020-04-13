@@ -12,12 +12,15 @@
   - Pagination
   - Change number of items per page
   - Export excel of all users by admin users
+  - Node side test cases using chai and mocha
 
 # Unimplemented Features!
 
   - Styling component
   - Add some data from UI
-
+  - Test cases
+  - Internationalization
+  
 ### Front End Tech
 
 * React for UI

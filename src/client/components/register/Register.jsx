@@ -81,6 +81,10 @@ class Register extends Component {
 
                 <Container>
                     <Row>
+                        <Col md={12}><div className="form-header"><h3>Register</h3></div></Col>
+                    </Row>
+
+                    <Row>
                         <Col></Col>
 
                         <Col xs={12} md={5}>
@@ -152,7 +156,7 @@ class Register extends Component {
                                         />
                                     </Form.Group>
 
-                                    <Button variant="success" className="login-button" onClick={this.onClick}>
+                                    <Button className="login-button" onClick={this.onClick}>
                                         Register
                                     </Button>
                                 </Form>

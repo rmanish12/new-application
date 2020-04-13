@@ -1,3 +1,8 @@
+body {
+    min-height: 100% !important;
+    background-color:floralwhite !important;
+}
+
 .link {
     color: white;
 }
@@ -10,7 +15,7 @@
     border: 1px solid;
     padding: 10px;
     box-shadow: 5px 10px gray;
-    background-color: azure;
+    background-color: white;
     margin-top: 10px;
   }
 
@@ -21,6 +26,7 @@ label {
 
 .login-button {
     width: 100%;
+    background-color: #1A5276 !important;
 }
 
 .gender-radio {
@@ -64,10 +70,42 @@ label {
 .items-per-page {
     position: absolute;
     right: 0px;
-    padding-top: 6px;
+    margin-top: 17px;
+}
+
+.items-per-page-dropdown {
+    margin-top: 10px;
+    margin-bottom: -3px;
 }
 
 .pagination {
     margin: auto;
     width: 0%;
+}
+
+.admin-buttons {
+    margin-top: 13px;
+    margin-left: 20px;
+}
+
+.export-button {
+    background-color: gainsboro !important;
+    margin-top: 10px !important;
+    color: black !important;
+    border: aliceblue !important;
+}
+
+.form-header {
+    margin-top: 10px;
+    text-align: center;
+}
+
+nav {
+    min-height: 75px;
+}
+
+.inner-nav {
+    background-color: aquamarine;
+    margin-top: 10px;
+    min-height: 50px;
 }

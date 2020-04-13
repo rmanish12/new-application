@@ -25,7 +25,7 @@ class Admin extends React.Component {
     render() {
         return (
             <>
-                <Button onClick={this.onGetAllUsers}>Get All Users</Button>
+                <Button onClick={this.onGetAllUsers} className="admin-buttons" variant="info">Get All Users</Button>
                 <hr/>
                 {this.state.getAllUsers &&
                     <AllUsers />
